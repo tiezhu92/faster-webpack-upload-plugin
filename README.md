@@ -1,0 +1,3 @@
+# faster-webpack-upload-plugin
+Upload your files to ftp server easier and faster,add support to 'webpack --watch'
+editing ...
