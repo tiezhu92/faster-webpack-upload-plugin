@@ -2,7 +2,7 @@
 > Upload your files to ftp server easier and faster,add support to 'webpack --watch'
 
 ![](https://img.shields.io/npm/v/faster-webpack-upload-plugin.svg)
-![](https://img.shields.io/apm/l/faster-webpack-upload-plugin.svg)
+![](https://img.shields.io/npm/l/faster-webpack-upload-plugin.svg)
 
 ## Installation
 ```bash
