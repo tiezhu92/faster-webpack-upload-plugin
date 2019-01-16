@@ -28,8 +28,8 @@ var webpackConfig = {
       password: 'password',
       localPath: 'local path', // eg. 'assets'
       remotePath: 'remote path', // eg. /home/website/assets
-      log: ture or false, //default: false, is log details
-      clearFolder: false //default: false, clear remote path files for the first time
+      log: boolean, //default: false, is log details
+      clearFolder: boolean //default: false, clear remote path files for the first time
     })
   ]
 }
