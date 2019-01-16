@@ -53,7 +53,7 @@ class FasterWebpackUploadPlugin {
             try {
                 await sftp.exists(remotePath);
                 if (clearFolder) {
-                    log && console.log(chalk.red('clearing remote folder...'));
+                    log && console.log(chalk.red('Clearing remote folder...'));
                     await sftp.rmdir(remotePath, true);
                     await sftp.mkdir(remotePath, true);
                 }
@@ -79,8 +79,8 @@ class FasterWebpackUploadPlugin {
 
 
         if (folders.length > 0) {
-            log && console.log(chalk.green('creating remote folders...'));
-            await Promise.all(folders.map(folder => sftp.mkdir(folder).catch(() => log && console.log(chalk.yellow('folder create failed,it might exists')))));
+            log && console.log(chalk.green('Creating remote folders...'));
+            await Promise.all(folders.map(folder => sftp.mkdir(folder).catch(() => log && console.log(chalk.yellow('Folder create failed,it might exists')))));
         }
 
 
@@ -101,7 +101,7 @@ class FasterWebpackUploadPlugin {
                         }
                     })));
 
-            log && console.log('\n' + chalk.green('upload done! files size: ' + (uploadedFiles.reduce((pre, next) => ({size: pre.size + next.size}), {size: 0}).size / 1000).toFixed(2) + ' KB'));
+            log && console.log('\n' + chalk.green('Upload done! Files size: ' + (uploadedFiles.reduce((pre, next) => ({size: pre.size + next.size}), {size: 0}).size / 1000).toFixed(2) + ' KB'));
         }
 
         await sftp.end();
