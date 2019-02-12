@@ -40,7 +40,7 @@ class FasterWebpackUploadPlugin {
     }
 
 
-    async upload(compilation) {
+    async upload(compilation, callback) {
         const {localPath, remotePath, log, clearFolder, ...others} = this.options;
         const folders = [];
         const files = [];
@@ -105,6 +105,10 @@ class FasterWebpackUploadPlugin {
         }
 
         await sftp.end();
+
+        if (callback) {
+            callback();
+        }
     }
 
 }
