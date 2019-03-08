@@ -27,6 +27,8 @@ class FasterWebpackUploadPlugin {
         options.port = options.port || '22';
         options.firstEmit = options.firstEmit === undefined ? true : options.firstEmit;
 
+        this.createdFolders = {};
+
         this.upload = this.upload.bind(this);
     }
 
@@ -42,7 +44,6 @@ class FasterWebpackUploadPlugin {
 
     async upload(compilation, callback) {
         const {localPath, remotePath, log, clearFolder, ...others} = this.options;
-        const folders = [];
         const files = [];
         const uploadedFiles = [];
 
@@ -61,7 +62,7 @@ class FasterWebpackUploadPlugin {
                 await sftp.mkdir(remotePath, true);
             }
 
-            getFolderNFiles(folders, files, localPath, remotePath);
+            getFolderNFiles(files, localPath, remotePath);
 
             this.options.firstEmit = false;
         } else {
@@ -77,18 +78,21 @@ class FasterWebpackUploadPlugin {
             }
         }
 
-
-        if (folders.length > 0) {
-            log && console.log(chalk.green('Creating remote folders...'));
-            await Promise.all(folders.map(folder => sftp.mkdir(folder).catch(() => log && console.log(chalk.yellow('Folder create failed,it might exists')))));
-        }
-
-
         const pb = new ProgressBar('', 50);
 
         if (files.length > 0) {
-            await Promise.all(files.map(file =>
-                sftp.fastPut(file.local, file.remote)
+            await Promise.all(files.map(async file => {
+
+                const remoteFolder = path.dirname(file.remote);
+
+                // Create remote folders once
+                if (!this.createdFolders[remoteFolder]) {
+                    this.createdFolders[remoteFolder] = true;
+
+                    await sftp.mkdir(remoteFolder, true).catch(() => {}); // ignore failure - the call to `fastPut` below will error if it really failed
+                }
+
+                return sftp.fastPut(file.local, file.remote)
                     .catch(log && console.log)
                     .then(result => {
                         if (result) {
@@ -99,7 +103,8 @@ class FasterWebpackUploadPlugin {
                                 total: files.length,
                             })
                         }
-                    })));
+                    })
+            }));
 
             log && console.log('\n' + chalk.green('Upload done! Files size: ' + (uploadedFiles.reduce((pre, next) => ({size: pre.size + next.size}), {size: 0}).size / 1000).toFixed(2) + ' KB'));
         }
@@ -114,7 +119,7 @@ class FasterWebpackUploadPlugin {
 }
 
 
-function getFolderNFiles(folders, files, local, remote, file) {
+function getFolderNFiles(files, local, remote, file) {
     if (file) {
         const localPath = path.join(local, file);
         const stats = fs.statSync(localPath);
@@ -122,9 +127,8 @@ function getFolderNFiles(folders, files, local, remote, file) {
             const folder = remote + '/' + file;
             const list = fs.readdirSync(local + '/' + file);
 
-            folders.push(folder);
             for (const f of list) {
-                getFolderNFiles(folders, files, localPath, folder, f);
+                getFolderNFiles(files, localPath, folder, f);
             }
         } else {
             files.push({
@@ -136,7 +140,7 @@ function getFolderNFiles(folders, files, local, remote, file) {
     } else {
         const fileList = fs.readdirSync(local);
         for (const file of fileList) {
-            getFolderNFiles(folders, files, local, remote, file);
+            getFolderNFiles(files, local, remote, file);
         }
     }
 
