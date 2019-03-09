@@ -22,19 +22,27 @@ var webpackConfig = {
   },
   plugins: [
     new FasterUploadPlugin({
-      host: 'host',
-      port: 'post', // default: 22
-      username: 'username',
-      password: 'password',
-      localPath: 'local path', // eg. 'assets'
-      remotePath: 'remote path', // eg. /home/website/assets
-      log: boolean, //default: false, is log details
-      clearFolder: boolean //default: false, clear remote path files for the first time
+
+        // config options, you can find options detail down here
+
     })
   ]
 }
 
 ```
+### Options Detail:
+
+Option Name|Usage|Type|Default Value
+---|:--:|:--:|:-:
+host|Server's IP address|String|(none)
+port|Number of ssh port| String | "22"
+username|Username for authentication|String|(none)
+localPath|Folder path which need upload|String|(none)
+remotePath|Folder path on server|String|(none)
+log|Show log when is uploading|Boolean|false
+clearFolder|Clear remote path files for the first time|Boolean|false
+fileIgnores|Files didn't upload(matching file name with file path)|Array\<RegExp\>|(none)
+
 for other options you can see  https://github.com/mscdex/ssh2#client-methods
 
 ## License

@@ -41,7 +41,7 @@ class FasterWebpackUploadPlugin {
 
 
     async upload(compilation, callback) {
-        const {localPath, remotePath, log, clearFolder, ...others} = this.options;
+        const {localPath, remotePath, log, clearFolder, fileIgnores, ...others} = this.options;
         const folders = [];
         const files = [];
         const uploadedFiles = [];
@@ -61,13 +61,17 @@ class FasterWebpackUploadPlugin {
                 await sftp.mkdir(remotePath, true);
             }
 
-            getFolderNFiles(folders, files, localPath, remotePath);
+            this.getFolderNFiles(folders, files, localPath, remotePath);
 
             this.options.firstEmit = false;
         } else {
             const assets = compilation.assets;
             for (const file in assets) {
                 if (assets[file].emitted) {
+                    if (fileIgnores && fileIgnores.some((regexp) => regexp.test(assets[file].existsAt))) {
+                        return;
+                    }
+
                     files.push({
                         local: assets[file].existsAt,
                         remote: formatRemotePath(remotePath, file),
@@ -111,36 +115,41 @@ class FasterWebpackUploadPlugin {
         }
     }
 
-}
+    getFolderNFiles(folders, files, local, remote, file) {
+        if (file) {
+            const localPath = path.join(local, file);
+            const stats = fs.statSync(localPath);
+            if (stats.isDirectory()) {
+                const folder = remote + '/' + file;
+                const list = fs.readdirSync(local + '/' + file);
 
-
-function getFolderNFiles(folders, files, local, remote, file) {
-    if (file) {
-        const localPath = path.join(local, file);
-        const stats = fs.statSync(localPath);
-        if (stats.isDirectory()) {
-            const folder = remote + '/' + file;
-            const list = fs.readdirSync(local + '/' + file);
-
-            folders.push(folder);
-            for (const f of list) {
-                getFolderNFiles(folders, files, localPath, folder, f);
+                folders.push(folder);
+                for (const f of list) {
+                    this.getFolderNFiles(folders, files, localPath, folder, f);
+                }
+            } else {
+                if (this.options.fileIgnores && this.options.fileIgnores.some((regexp) => regexp.test(localPath))) {
+                    return;
+                }
+                files.push({
+                    local: localPath,
+                    remote: remote + '/' + file,
+                    size: stats.size,
+                });
             }
         } else {
-            files.push({
-                local: localPath,
-                remote: remote + '/' + file,
-                size: stats.size,
-            });
+            const fileList = fs.readdirSync(local);
+            for (const f of fileList) {
+                this.getFolderNFiles(folders, files, local, remote, f);
+            }
         }
-    } else {
-        const fileList = fs.readdirSync(local);
-        for (const file of fileList) {
-            getFolderNFiles(folders, files, local, remote, file);
-        }
+
     }
 
 }
+
+
+
 
 function formatRemotePath(remotePath, filePath) {
     return (remotePath + '/' + filePath).replace(/\\/g, '/');
