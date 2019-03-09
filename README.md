@@ -4,6 +4,8 @@
 ![](https://img.shields.io/npm/v/faster-webpack-upload-plugin.svg)
 ![](https://img.shields.io/npm/l/faster-webpack-upload-plugin.svg)
 
+[![NPM](https://nodei.co/npm/faster-webpack-upload-plugin.png)](https://nodei.co/npm/faster-webpack-upload-plugin/)
+
 ## Installation
 ```bash
 npm i -D faster-webpack-upload-plugin
@@ -39,8 +41,7 @@ port|Number of ssh port| String | "22"
 username|Username for authentication|String|(none)
 localPath|Folder path which need upload|String|(none)
 remotePath|Folder path on server|String|(none)
-log|Show log when is uploading|Boolean|false
-progress|Show the progressBar|Boolean|false
+log|Show log when is uploading|Boolean \| {info: Boolean, progress: Boolean, warning: Boolean, error: Boolean}|false
 clearFolder|Clear remote path files for the first time|Boolean|false
 fileIgnores|Files didn't upload(matching file name with file path)|Array\<RegExp\>|(none)
 
