@@ -40,6 +40,7 @@ username|Username for authentication|String|(none)
 localPath|Folder path which need upload|String|(none)
 remotePath|Folder path on server|String|(none)
 log|Show log when is uploading|Boolean|false
+progress|Show the progressBar|Boolean|false
 clearFolder|Clear remote path files for the first time|Boolean|false
 fileIgnores|Files didn't upload(matching file name with file path)|Array\<RegExp\>|(none)
 
