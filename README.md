@@ -29,6 +29,7 @@ var webpackConfig = {
       localPath: 'local path', // eg. 'assets'
       remotePath: 'remote path', // eg. /home/website/assets
       log: boolean, //default: false, is log details
+      progress: boolean, // default: false, show upload progress bar
       clearFolder: boolean //default: false, clear remote path files for the first time
     })
   ]

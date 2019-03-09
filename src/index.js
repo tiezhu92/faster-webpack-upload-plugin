@@ -18,6 +18,7 @@ class FasterWebpackUploadPlugin {
             remotePath: 'remote path',
             localPath: 'localPath',
             log: false, // log detail
+            progress: false, // show progress bar
             clearFolder: false // clear remote path files for the first time,
         }
 
@@ -41,7 +42,7 @@ class FasterWebpackUploadPlugin {
 
 
     async upload(compilation, callback) {
-        const {localPath, remotePath, log, clearFolder, ...others} = this.options;
+        const {localPath, remotePath, log, progress, clearFolder, ...others} = this.options;
         const folders = [];
         const files = [];
         const uploadedFiles = [];
@@ -93,7 +94,7 @@ class FasterWebpackUploadPlugin {
                     .then(result => {
                         if (result) {
                             uploadedFiles.push(file);
-                            pb.render({
+                            progress && pb.render({
                                 percent: (uploadedFiles.length / files.length).toFixed(4),
                                 completed: uploadedFiles.length,
                                 total: files.length,
