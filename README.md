@@ -39,7 +39,7 @@ Option Name|Usage|Type|Default Value
 host|Server's IP address|String|(none)
 port|Number of ssh port| String | "22"
 username|Username for authentication|String|(none)
-localPath|Folder path which need upload|String|(none)
+~~localPath~~|~~Folder path which need upload~~|~~String~~|Deprecated,don't need it anymore
 remotePath|Folder path on server|String|(none)
 log|Show log when is uploading|Boolean \| {info: Boolean, progress: Boolean, warning: Boolean, error: Boolean}|false
 clearFolder|Clear remote path files for the first time|Boolean|false
@@ -47,5 +47,12 @@ fileIgnores|Files didn't upload(matching file name with file path)|Array\<RegExp
 
 for other options you can see  https://github.com/mscdex/ssh2#client-methods
 
+## Change Log
+
+### 1.2.0
+```
+- change: remove the code of scanning local directory, so remove the option "localPath"
+- fix: when webpack watching mode add new folder, the plugin can auto retry and make it right
+```
 ## License
 This project is licensed under [MIT](http://www.opensource.org/licenses/mit-license.php).
