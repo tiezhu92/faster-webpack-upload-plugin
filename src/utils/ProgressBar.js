@@ -2,46 +2,46 @@ const slog = require('single-line-log').stdout;
 
 module.exports = function ProgressBar(description, bar_length) {
 
-    // 两个基本参数(属性)
+  // 两个基本参数(属性)
 
-    this.description = description || 'Progress';    // 命令行开头的文字信息
+  this.description = description || 'Progress';    // 命令行开头的文字信息
 
-    this.length = bar_length || 25;           // 进度条的长度(单位：字符)，默认设为 25
+  this.length = bar_length || 25;           // 进度条的长度(单位：字符)，默认设为 25
 
-    // 刷新进度条图案、文字的方法
+  // 刷新进度条图案、文字的方法
 
-    this.render = function (opts) {
+  this.render = function (opts) {
 
-        const cell_num = Math.floor(opts.percent * this.length);       // 计算需要多少个 █ 符号来拼凑图案
+    const cell_num = Math.floor(opts.percent * this.length);       // 计算需要多少个 █ 符号来拼凑图案
 
-        // 拼接黑色条
+    // 拼接黑色条
 
-        let cell = '';
+    let cell = '';
 
-        for (let i = 0; i < cell_num; i++) {
+    for (let i = 0; i < cell_num; i++) {
 
-            cell += '█';
+      cell += '█';
 
-        }
+    }
 
-        // 拼接灰色条
+    // 拼接灰色条
 
-        let empty = '';
+    let empty = '';
 
-        for (let i = 0; i < this.length - cell_num; i++) {
+    for (let i = 0; i < this.length - cell_num; i++) {
 
-            empty += '░';
+      empty += '░';
 
-        }
+    }
 
-        // 拼接最终文本
+    // 拼接最终文本
 
-        const cmdText = this.description + ': ' + (100 * opts.percent).toFixed(2) + '% ' + cell + empty + ' ' + opts.completed + '/' + opts.total;
+    const cmdText = this.description + ': ' + (100 * opts.percent).toFixed(2) + '% ' + cell + empty + ' ' + opts.completed + '/' + opts.total;
 
-        // 在单行输出文本
+    // 在单行输出文本
 
-        slog(cmdText);
+    slog(cmdText);
 
-    };
+  };
 
 }

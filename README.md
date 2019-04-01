@@ -49,10 +49,15 @@ for other options you can see  https://github.com/mscdex/ssh2#client-methods
 
 ## Change Log
 
+### 1.2.1
+```
+- change: change license from MIT to 996.ICU License
+```
+
 ### 1.2.0
 ```
 - change: remove the code of scanning local directory, so remove the option "localPath"
 - fix: when webpack watching mode add new folder, the plugin can auto retry and make it right
 ```
 ## License
-This project is licensed under [MIT](http://www.opensource.org/licenses/mit-license.php).
+This project is licensed under [996.ICU](https://github.com/996icu/996.ICU/blob/master/LICENSE).

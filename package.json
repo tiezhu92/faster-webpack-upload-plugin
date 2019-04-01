@@ -1,24 +1,25 @@
 {
-	"name": "faster-webpack-upload-plugin",
-	"version": "1.2.0",
-	"author": "WangTieZhu92",
-	"license": "MIT",
-	"description": "Upload your files to ftp server easier and faster,add support to 'webpack --watch'",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/tiezhu92/faster-webpack-upload-plugin"
-	},
-	"keywords": [
-		"webpack",
-		"sftp",
-		"ssh2",
-		"fast",
-		"plugin"
-	],
-	"main": "src/index.js",
-	"dependencies": {
-		"chalk": "1.1.3",
-		"single-line-log": "1.1.2",
-		"ssh2-sftp-client": "2.4.3"
-	}
+  "name": "faster-webpack-upload-plugin",
+  "version": "1.2.1",
+  "author": "WangTieZhu92",
+  "license": "996.ICU",
+  "description": "Upload your files to ftp server easier and faster,add support to 'webpack --watch'",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiezhu92/faster-webpack-upload-plugin"
+  },
+  "keywords": [
+    "webpack",
+    "sftp",
+    "ssh2",
+    "fast",
+    "upload",
+    "plugin"
+  ],
+  "main": "src/index.js",
+  "dependencies": {
+    "chalk": "1.1.3",
+    "single-line-log": "1.1.2",
+    "ssh2-sftp-client": "2.4.3"
+  }
 }

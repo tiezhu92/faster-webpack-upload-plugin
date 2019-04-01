@@ -123,10 +123,9 @@ class FasterWebpackUploadPlugin {
     }
   }
 
-  getFolderNFiles(folders, files, assets){
+  getFolderNFiles(folders, files, assets) {
     const folderSet = folders && new Set();
     for (const file in assets) {
-
       if (assets[file].emitted && (!this.options.fileIgnores || !this.options.fileIgnores.some((regexp) => regexp.test(assets[file].existsAt)))) {
         const remote = formatRemotePath(this.options.remotePath, file);
         let folder = remote.substr(0, remote.lastIndexOf("/"));
