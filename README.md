@@ -44,7 +44,7 @@ username|Username for authentication|String|(none)
 remotePath|Folder path on server|String|(none)
 log|Show log when is uploading|Boolean \| {info: Boolean, progress: Boolean, warning: Boolean, error: Boolean}|false
 clearFolder|Clear remote path files for the first time|Boolean|false
-fileIgnores|Files didn't upload(matching file name with file path)|Array\<RegExp\>|(none)
+fileIgnores|Files didn't upload(matching file path + file name)|Array\<RegExp\>|(none)
 
 for other options you can see  https://github.com/mscdex/ssh2#client-methods
 
