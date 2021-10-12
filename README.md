@@ -50,6 +50,11 @@ for other options you can see  https://github.com/mscdex/ssh2#client-methods
 
 ## Change Log
 
+### 1.2.2
+```
+- fix: ssh2 securty problem
+```
+
 ### 1.2.1
 ```
 - change: change license from MIT to 996.ICU License
