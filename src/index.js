@@ -2,8 +2,6 @@
 
 const Client = require('ssh2-sftp-client');
 const chalk = require('chalk');
-const fs = require('fs');
-const path = require('path');
 const ProgressBar = require('./utils/ProgressBar');
 
 class FasterWebpackUploadPlugin {
@@ -129,7 +127,7 @@ class FasterWebpackUploadPlugin {
       if (assets[file].emitted && (!this.options.fileIgnores || !this.options.fileIgnores.some((regexp) => regexp.test(assets[file].existsAt)))) {
         const remote = formatRemotePath(this.options.remotePath, file);
         let folder = remote.substr(0, remote.lastIndexOf("/"));
-        const split = folder.replace(this.options.remotePath, "").split("/");
+
         folders && folderSet.add(folder);
 
         files.push({

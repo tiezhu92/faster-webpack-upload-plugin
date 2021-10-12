@@ -1,6 +1,6 @@
 {
   "name": "faster-webpack-upload-plugin",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": "WangTieZhu92",
   "license": "996.ICU",
   "description": "Upload your files to ftp server easier and faster,add support to 'webpack --watch'",
@@ -18,8 +18,8 @@
   ],
   "main": "src/index.js",
   "dependencies": {
-    "chalk": "1.1.3",
-    "single-line-log": "1.1.2",
-    "ssh2-sftp-client": "2.4.3"
+    "chalk": "^1.1.3",
+    "single-line-log": "^1.1.2",
+    "ssh2-sftp-client": "^7.0.4"
   }
 }
