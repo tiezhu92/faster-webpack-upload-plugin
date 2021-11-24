@@ -1,6 +1,6 @@
 {
   "name": "faster-webpack-upload-plugin",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "author": "WangTieZhu92",
   "license": "996.ICU",
   "description": "Upload your files to ftp server easier and faster,add support to 'webpack --watch'",

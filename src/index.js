@@ -3,6 +3,7 @@
 const Client = require('ssh2-sftp-client');
 const chalk = require('chalk');
 const ProgressBar = require('./utils/ProgressBar');
+const path = require('path');
 
 class FasterWebpackUploadPlugin {
   constructor(options = {}) {
@@ -149,7 +150,7 @@ class FasterWebpackUploadPlugin {
 }
 
 function formatRemotePath(remotePath, filePath) {
-  return (remotePath + '/' + filePath).replace(/\\/g, '/').replace(/\.\//g, "");
+  return path.join(remotePath, filePath);
 }
 
 module.exports = FasterWebpackUploadPlugin;
